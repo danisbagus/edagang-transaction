@@ -37,6 +37,7 @@ func main() {
 
 	// routing
 	router.HandleFunc("/transactions", transactionHandler.GetTransactionList).Methods(http.MethodGet).Name("GetTransactionList")
+	router.HandleFunc("/transactions/{transaction_id}", transactionHandler.GetTransactionDetail).Methods(http.MethodGet).Name("GetTransactionDetail")
 
 	// router.HandleFunc("/transactions", transactionHandler.NewTransaction).Methods(http.MethodPost).Name("NewTransaction")
 

@@ -8,10 +8,10 @@ import (
 
 type ITransactionRepo interface {
 	FindAll() ([]domain.TransactionModel, *errs.AppError)
-	// FindOneByID(transactionID string) (*domain.TransactionModel, *errs.AppError)
+	FindOneByID(transactionID string) (*domain.TransactionModel, *errs.AppError)
 }
 
 type ITransactionService interface {
 	GetAll() (*dto.TransactionListResponse, *errs.AppError)
-	// GetDetail(productID int64) (*dto.TransactionResponse, *errs.AppError)
+	GetDetail(transactionID string) (*dto.TransactionResponse, *errs.AppError)
 }

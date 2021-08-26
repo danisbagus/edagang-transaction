@@ -27,3 +27,14 @@ func (r TransactionService) GetAll() (*dto.TransactionListResponse, *errs.AppErr
 
 	return response, nil
 }
+
+func (r TransactionService) GetDetail(transactionID string) (*dto.TransactionResponse, *errs.AppError) {
+	data, err := r.repo.FindOneByID(transactionID)
+	if err != nil {
+		return nil, err
+	}
+
+	response := dto.NewGetDetailTransactionResponse(data)
+
+	return response, nil
+}

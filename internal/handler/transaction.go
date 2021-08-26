@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/danisbagus/edagang-transaction/internal/core/port"
+	"github.com/gorilla/mux"
 )
 
 type TransactionHandler struct {
@@ -18,6 +19,18 @@ func (rc TransactionHandler) GetTransactionList(w http.ResponseWriter, r *http.R
 		return
 	}
 	writeResponse(w, http.StatusOK, dataList)
+}
+
+func (rc TransactionHandler) GetTransactionDetail(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+
+	transactionID := vars["transaction_id"]
+	data, err := rc.Service.GetDetail(transactionID)
+	if err != nil {
+		writeResponse(w, err.Code, err.AsMessage())
+		return
+	}
+	writeResponse(w, http.StatusOK, data)
 }
 
 // func (rc TransactionHandler) NewTransaction(w http.ResponseWriter, r *http.Request) {
