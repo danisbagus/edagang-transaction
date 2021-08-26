@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/danisbagus/edagang-transaction/internal/core/port"
+	"github.com/danisbagus/edagang-transaction/internal/dto"
 	"github.com/gorilla/mux"
 )
 
@@ -33,21 +34,21 @@ func (rc TransactionHandler) GetTransactionDetail(w http.ResponseWriter, r *http
 	writeResponse(w, http.StatusOK, data)
 }
 
-// func (rc TransactionHandler) NewTransaction(w http.ResponseWriter, r *http.Request) {
-// 	var request dto.NewTransactionRequest
+func (rc TransactionHandler) NewTransaction(w http.ResponseWriter, r *http.Request) {
+	var request dto.NewTransactionRequest
 
-// 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-// 		writeResponse(w, http.StatusBadRequest, err.Error())
-// 		return
-// 	}
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeResponse(w, http.StatusBadRequest, err.Error())
+		return
+	}
 
-// 	data, err := rc.Service.NewTransaction(&request)
-// 	if err != nil {
-// 		writeResponse(w, err.Code, err.AsMessage())
-// 		return
-// 	}
-// 	writeResponse(w, http.StatusCreated, data)
-// }
+	data, err := rc.Service.NewTransaction(&request)
+	if err != nil {
+		writeResponse(w, err.Code, err.AsMessage())
+		return
+	}
+	writeResponse(w, http.StatusCreated, data)
+}
 
 func writeResponse(w http.ResponseWriter, code int, data interface{}) {
 	w.Header().Add("Content-Type", "application/json")
