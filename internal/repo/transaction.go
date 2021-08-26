@@ -26,7 +26,7 @@ func (r TransactionRepo) FindAll() ([]domain.TransactionModel, *errs.AppError) {
 	filter := bson.M{}
 	transactions := make([]domain.TransactionModel, 0)
 
-	trnsactionCollection := r.db.Database("edagangan").Collection("transactions")
+	trnsactionCollection := r.db.Database("edagang").Collection("transactions")
 	cur, err := trnsactionCollection.Find(context.TODO(), filter)
 	if err != nil {
 		log.Fatal("Error on Finding all transaction", err)
