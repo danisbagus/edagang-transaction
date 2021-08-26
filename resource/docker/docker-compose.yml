@@ -1,0 +1,28 @@
+version: "3.1"
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - mongodata:/data/db
+      - ./initdb:/docker-entrypoint-initdb.d  
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=danisbagus
+    ports:
+      - "127.0.0.1:27017:27017"
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 18081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: danisbagus
+      ME_CONFIG_MONGODB_URL: mongodb://root:danisbagus@mongo:27017/
+
+volumes:
+    mongodata:
+     driver: local
