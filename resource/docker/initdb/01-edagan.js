@@ -1,4 +1,4 @@
-db = db.getSiblingDB("edagangan");
+db = db.getSiblingDB("edagang");
 
 db.createCollection("transactions");
 
