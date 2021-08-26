@@ -50,6 +50,20 @@ func (rc TransactionHandler) NewTransaction(w http.ResponseWriter, r *http.Reque
 	writeResponse(w, http.StatusCreated, data)
 }
 
+func (rc TransactionHandler) RemoveTransaction(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	transactionID := vars["transaction_id"]
+
+	err := rc.Service.RemoveTransaction(transactionID)
+	if err != nil {
+		writeResponse(w, err.Code, err.AsMessage())
+		return
+	}
+	writeResponse(w, http.StatusOK, map[string]bool{
+		"success": true,
+	})
+}
+
 func writeResponse(w http.ResponseWriter, code int, data interface{}) {
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(code)

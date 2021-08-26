@@ -39,6 +39,7 @@ func main() {
 	router.HandleFunc("/transactions", transactionHandler.GetTransactionList).Methods(http.MethodGet).Name("GetTransactionList")
 	router.HandleFunc("/transactions/{transaction_id}", transactionHandler.GetTransactionDetail).Methods(http.MethodGet).Name("GetTransactionDetail")
 	router.HandleFunc("/transactions", transactionHandler.NewTransaction).Methods(http.MethodPost).Name("NewTransaction")
+	router.HandleFunc("/transactions/{transaction_id}", transactionHandler.RemoveTransaction).Methods(http.MethodDelete).Name("RemoveTransaction")
 
 	// starting server
 	logger.Info("Starting transaction service")

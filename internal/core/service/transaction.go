@@ -59,6 +59,14 @@ func (r TransactionService) NewTransaction(data *dto.NewTransactionRequest) (*dt
 	return response, nil
 }
 
+func (r TransactionService) RemoveTransaction(transactionID string) *errs.AppError {
+	err := r.repo.Delete(transactionID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 var seededRand *rand.Rand = rand.New(
 	rand.NewSource(time.Now().UnixNano()))
 

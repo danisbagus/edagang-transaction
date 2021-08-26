@@ -2,7 +2,6 @@ package repo
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/danisbagus/edagang-pkg/errs"
 	"github.com/danisbagus/edagang-pkg/logger"
@@ -52,7 +51,6 @@ func (r TransactionRepo) FindAll() ([]domain.TransactionModel, *errs.AppError) {
 		transactions = append(transactions, transaction)
 	}
 
-	fmt.Println("transactions", transactions)
 	return transactions, nil
 }
 
@@ -72,4 +70,18 @@ func (r TransactionRepo) FindOneByID(transactionID string) (*domain.TransactionM
 	}
 
 	return &transaction, nil
+}
+
+func (r TransactionRepo) Delete(transactionID string) *errs.AppError {
+	filter := bson.M{"transaction_id": transactionID}
+
+	collection := r.db.Database("edagang").Collection("transactions")
+	_, err := collection.DeleteOne(context.TODO(), filter)
+
+	if err != nil {
+		logger.Error("Error on delete transaction: " + err.Error())
+		return errs.NewUnexpectedError("Unexpected database error")
+	}
+
+	return nil
 }
