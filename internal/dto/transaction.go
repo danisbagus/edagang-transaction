@@ -9,6 +9,7 @@ import (
 
 type TransactionResponse struct {
 	TransactionID   string    `json:"transaction_id"`
+	UserID          int64     `json:"user_id"`
 	ProductID       int64     `json:"product_id"`
 	Quantity        int64     `json:"quantity"`
 	TransactionDate time.Time `json:"transaction_date"`
@@ -35,6 +36,7 @@ func NewGetListTransactionResponse(data []domain.TransactionModel) *TransactionL
 		dataList[k] = TransactionResponse{
 			TransactionID:   v.TransactionID,
 			ProductID:       v.ProductID,
+			UserID:          v.UserID,
 			Quantity:        v.Quantity,
 			TransactionDate: v.TransactionDate,
 		}
